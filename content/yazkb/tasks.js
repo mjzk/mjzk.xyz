@@ -6,7 +6,7 @@ const task_table_Instance = new VTable.ListTable(document.getElementById('task_t
         },
         {
             "task": "sha2",
-            "desc": "🛠️",
+            "desc": "Exploring common ZK application's performance. For common zk applications, built-in mechanisms (gadgets and precompiles) are usually used for abstraction and acceleration. So, it is a good opportunity to check the optimization level of ZK implementations",
         },
     ],
     columns: [

@@ -1,6 +1,6 @@
 +++
 title = "Yet Another ZK Benchmark Report"
-description = "version 2024.05.07"
+description = "version 2024.05.08"
 date = 2024-05-07T08:00:00+00:00
 updated = 2024-05-07T08:00:00+00:00
 sort_by = "weight"
@@ -17,6 +17,7 @@ class = "page single"
 
 ## Changelog
 
+- 2024.05.08: The sha2 task has been added and benched.
 - 2024.05.07: first version released.
 
 ## Introduction
@@ -54,7 +55,7 @@ This benchmark is the first project to compare halo2, risc0 and sp1. These ZK sy
 
 The usage of halo2 and its background tech SNARK was very popular yesterday in ZK and blockchain. However, obviously, the official github project is no longer actively developed, so we will call it "maintenance" status for now. There are a lot of issues with no working or feedback, which is terrible. From the engineering perspective, this project is not recommended.
 
-\*\* for halo2, I actually use one halo2-pse based tweaking [halo2-lib](https://github.com/axiom-crypto/halo2-lib), although it is still in "maintenance" as well.
+\*\* for halo2, I actually use tweaked library like [halo2-ce](https://github.com/halo2-ce/halo2) or [halo2-lib](https://github.com/axiom-crypto/halo2-lib), although they are in "maintenance" as well.
 
 In contrast, the two zkvm projects are evolving rapidly and can already handle a large number of scenarios, but whether they have reached production level requires careful evaluation and auditing. On the other hand, rapid iteration brings instability in usage, and experienced engineers are needed to maintain the application well.
 
@@ -67,7 +68,7 @@ In contrast, the two zkvm projects are evolving rapidly and can already handle a
 
 A series of end-to-end tasks from simple to complex have been proposed to comprehensively evaluate the main aspects of the subjects. This tasks set allows for a detailed evaluation of different layers in a ZK system, ensuring that the benchmark captures real-world production performance, rather than unpractical micro-benchmarks.
 
-Currently, the task fibonacci has been benched. The tasks like sha2 and smart contract are working in progress and coming soon.
+Currently, the task fibonacci and sha2 have been benched. More bench tasks are in consideration and coming soon.
 
 ## Hardware
 
@@ -99,6 +100,8 @@ It is hoped that the measurement can be closer to real-world production. Because
 <br/>
 <p align="center">Tab.4 Benchmark results - run time</p>
 
+#### Task - fibonacci
+
 Here, the parameter of fibonacci task here is the upper bound of loop counter. In other words, the larger the parameter, the larger the circuit scale.
 
 From the run time table of the fibonacci task, it is great to get:
@@ -117,15 +120,27 @@ From the run time table of the fibonacci task, it is great to get:
 
 4. As ZKVM, there is a certain degree of competition between RISC0 and SP1. And the current benched version of risc0 is not latest enough like that of sp1. I am happy to continue updating and following the evolution of both.
 
+#### Task - sha2
+
+Here, the parameter of sha2 task here is the byte length of input strings/bytes. The larger the parameter may still mean the larger the circuit scale. 
+
+1. For proving time, sp1 wins in this task. halo2 is 2x slower, and risc0 is 20x slower in the worst case. For verifying time, risc0 still wins, but not too much in large parameter case.
+
+2. In halo2 side, I can not find a suitable implementation in halo2-lib, so I tweak the source from halo2-ce to allow dynamic input length.
+
+   On the surface, halo2 is only 2 times slower than sp1, but in fact, halo2's `ParamsIPA::new` is 2 orders of magnitude slower than its proving and verifying, but this call is not included in the performance results, which is a bit ridiculous. In short, if both pk and vk are generated dynamically, halo2 (or say halo2-ce) is the slowest and basically doesn't work on strings which length is around 100kB or more. (I will continue to pay attention to this issue.)
+
+3. sp1 has best proving run time, smooth transition curve and great balance between proving and verifying. When the length of input strings becomes long, the proving time of risc0 is orders of magnitude slower.
+
 ## Conclusion
 
 As a user of ZK technology, 
-1. if you pursue the best performance, then you still need to consider halo2; 
+1. if you pursue the best performance in some simple task,you can still consider halo2; 
 
-2. however, if you accept the balance between development and performance, zkvm way can already enter your trial zone. I suggest you pay attention to and try the new zkvm paradigm, which is very likely to replace the existing SNARK-based ecosystem in the near future.
+2. however, if you accept the balance between development and performance, ZKVM way can already enter your trial zone. I suggest you pay attention to and try the new zkvm paradigm, which is very likely to replace the existing SNARK-based ecosystem in the near future. Currently, sp1 is the most balanced ZKVM.
 
 ## One more thing
 
 More complex end-to-end benchmark tasks and GPU benchmark results are coming soon. Stay tuned!
 
-Thank you for following YAZKB and my blog, it is hoped to bring you more and latest ZK and blockchain practices.
+Thank you for following [YAZKB](https://github.com/mjzk/yazkb) and my blog, it is hoped to bring you more and latest ZK and blockchain practices.
