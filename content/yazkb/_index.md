@@ -17,6 +17,7 @@ class = "page single"
 
 ## Changelog
 
+- 2024.05.09: more thoughts in conclusion.
 - 2024.05.08: The sha2 task has been added and benched.
 - 2024.05.07: first version released.
 
@@ -135,9 +136,11 @@ Here, the parameter of sha2 task here is the byte length of input strings/bytes.
 ## Conclusion
 
 As a user of ZK technology, 
-1. if you pursue the best performance in some simple task,you can still consider halo2; 
+1. if you pursue the best performance in some simple task, you can still consider halo2. 
 
-2. however, if you accept the balance between development and performance, ZKVM way can already enter your trial zone. I suggest you pay attention to and try the new zkvm paradigm, which is very likely to replace the existing SNARK-based ecosystem in the near future. Currently, sp1 is the most balanced ZKVM.
+2. however, if you accept the balance between development and performance, ZKVM way can already enter your trial zone. I suggest you pay attention to and try the new zkvm paradigm, which is very likely to replace the existing SNARK-based ecosystem in the future. 
+
+3. Currently, sp1 is the most balanced ZKVM. However, this does not mean risc0 has no chance. In fact, the toolchain of sp1 is simply modified from that of risc0. The main work of sp1 is its different ZK backend. risc0 is the originator of RISC VM based ZK proving system(at least for production-level implementation). It has stronger control over the whole stack. sp1 outsources major components to different open source dependencies. This is smart, but also limits its ceiling, in that if the main works are outside, its competitors can easily get them, too.
 
 ## One more thing
 
