@@ -142,6 +142,9 @@ As a user of ZK technology,
 
 3. Currently, sp1 is the most balanced ZKVM. However, this does not mean risc0 has no chance. In fact, the toolchain of sp1 is simply modified from that of risc0. The main work of sp1 is its different ZK backend. risc0 is the originator of RISC VM based ZK proving system(at least for production-level implementation). It has stronger control over the whole stack. sp1 outsources major components to different open source dependencies. This is smart, but also limits its ceiling, in that if the main works are outside, its competitors can easily get them, too.
 
+4. Current ZKVMs has big improvement space in performance. The API needs to be further stabilized, the VM execution efficiency is still low, and the GPU support is still relatively rudimentary. But I believe that this year of ZKVM will be very different.
+
+
 ## One more thing
 
 More complex end-to-end benchmark tasks and GPU benchmark results are coming soon. Stay tuned!
