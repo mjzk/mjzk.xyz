@@ -1,6 +1,6 @@
 +++
-title = "Yet Another ZK Benchmark Report"
-description = "version 2024.05.08"
+title = "Yet Another Zero Knowledge Benchmark Report"
+description = "version 2024.05.09"
 date = 2024-05-07T08:00:00+00:00
 updated = 2024-05-07T08:00:00+00:00
 sort_by = "weight"
@@ -23,7 +23,7 @@ class = "page single"
 
 ## Introduction
 
-The YAZKB (Yet Another ZK Benchmark) project aims to offer an end-to-end, cutting-edge, production-focused and interdisciplinary perspective for ZK (Zero Knowledge) performance and engineering.
+The YAZKB (Yet Another Zero Knowledge Benchmark) project aims to offer an end-to-end, cutting-edge, production-focused and interdisciplinary perspective for ZK (Zero Knowledge) performance and engineering.
 
 ## Highlight
 
