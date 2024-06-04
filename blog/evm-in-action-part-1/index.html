@@ -1,0 +1,92 @@
+<!doctype html><html lang=en-US><head><meta charset=utf-8><meta content="ie=edge" http-equiv=x-ua-compatible><meta content="width=device-width,initial-scale=1,shrink-to-fit=no" name=viewport><style>@font-face {font-family:'Rubik';font-style:normal;font-weight:400;src:url(/fonts/rubik.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}*{font-family:Rubik}</style><script defer src=https://unpkg.com/@visactor/vtable/dist/vtable.min.js></script><link href=/css/line-awesome.min.css rel=stylesheet><link href=/asciinema-player.css rel=stylesheet><link as=font crossorigin href=https://mjzk.xyz/fonts/vendor/jost/jost-v4-latin-regular.woff2 rel=preload type=font/woff2><link as=font crossorigin href=https://mjzk.xyz/fonts/vendor/jost/jost-v4-latin-700.woff2 rel=preload type=font/woff2><link href=https://mjzk.xyz/main.css rel=stylesheet><meta content="index, follow" name=robots><meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name=googlebot><meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name=bingbot><title>EVM in Action, Part 1: Introduction | MJZK</title><meta content="This is the shade home of MJ in blockchain and ZK." name=description><link href=https://mjzk.xyz/blog/evm-in-action-part-1/ rel=canonical><meta content="EVM in Action, Part 1: Introduction" property=og:title><meta content="This is the shade home of MJ in blockchain and ZK." property=og:description><meta content=article property=og:type><meta content=https://mjzk.xyz/blog/evm-in-action-part-1/ property=og:url><meta content=tb-logo.png property=og:image><meta content=2024-06-03T12:00:00+00:00 property=og:updated_time><meta content="EVM in Action, Part 1: Introduction" property=og:site_name><meta content=en_US property=og:locale><script type=application/ld+json>
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/blog/evm-in-action-part-1/"
+      },
+      "headline": "EVM in Action, Part 1: Introduction",
+      "image": ,
+      "datePublished": "2024-06-03T12:00:00+00:00",
+      "dateModified": "2024-06-03T12:00:00+00:00",
+      "author": {
+        "@type": "Organization",
+        "name": "EVM in Action, Part 1: Introduction"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "EVM in Action, Part 1: Introduction",
+        
+        "logo": {
+          "@type": "ImageObject",
+          "url": "/tb-logo.png"
+        }
+        
+      },
+      "description": "This is the shade home of MJ in blockchain and ZK."
+    }
+    </script><script type=application/ld+json>
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          {
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Home",
+            "item": "https://mjzk.xyz/"
+          },
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  2 ,
+            "name": "Blog",
+            "item": "https://mjzk.xyz/blog/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  3 ,
+            "name": "Evm In Action Part 1",
+            "item": "https://mjzk.xyz/blog/evm-in-action-part-1/"
+          },
+        
+      
+    
+  }
+</script><meta content=#000 name=theme-color><link href=/joinbase_logo_180.png rel=apple-touch-icon sizes=180x180><link href=/joinbase_logo_32.png rel=icon sizes=32x32 type=image/png><link href=/joinbase_logo_16.png rel=icon sizes=16x16 type=image/png><body class="blog single"><div class="header-bar fixed-top"></div><header class="navbar fixed-top navbar-expand-md navbar-light"><div class=container><input class="menu-btn order-0" id=menu-btn type=checkbox><label class="menu-icon d-md-none" for=menu-btn><span class=navicon></span></label><a class="navbar-brand order-1 order-md-0 me-auto" href=https://mjzk.xyz>MJZK</a><button aria-label="Toggle mode" class="btn btn-link order-2 order-md-4" id=mode type=button><span class=toggle-dark><svg class="feather feather-moon" viewbox="0 0 24 24" fill=none height=20 stroke=currentColor stroke-linecap=round stroke-linejoin=round stroke-width=2 width=20 xmlns=http://www.w3.org/2000/svg><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span> <span class=toggle-light><svg class="feather feather-sun" viewbox="0 0 24 24" fill=none height=20 stroke=currentColor stroke-linecap=round stroke-linejoin=round stroke-width=2 width=20 xmlns=http://www.w3.org/2000/svg><circle cx=12 cy=12 r=5></circle><line x1=12 x2=12 y1=1 y2=3></line><line x1=12 x2=12 y1=21 y2=23></line><line x1=4.22 x2=5.64 y1=4.22 y2=5.64></line><line x1=18.36 x2=19.78 y1=18.36 y2=19.78></line><line x1=1 x2=3 y1=12 y2=12></line><line x1=21 x2=23 y1=12 y2=12></line><line x1=4.22 x2=5.64 y1=19.78 y2=18.36></line><line x1=18.36 x2=19.78 y1=5.64 y2=4.22></line></svg></span></button><ul class="navbar-nav fork-me order-3 order-md-5"><li class=nav-item><a class=nav-link href=https://github.com/mjzk><svg class="feather feather-github" viewbox="0 0 24 24" fill=none height=20 stroke=currentColor stroke-linecap=round stroke-linejoin=round stroke-width=2 width=20 xmlns=http://www.w3.org/2000/svg><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg><span class="ms-2 visually-hidden">GitHub</span></a><li class=nav-item><a class=nav-link href=https://twitter.com/mjzkxyz><svg class="feather feather-twitter" viewbox="0 0 24 24" fill=none height=20 stroke=currentColor stroke-linecap=round stroke-linejoin=round stroke-width=2 width=20 xmlns=http://www.w3.org/2000/svg><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg><span class="ms-2 visually-hidden">Twitter</span></a></ul><div class="collapse navbar-collapse order-4 order-md-1"><ul class="navbar-nav main-nav me-auto order-5 order-md-2"><li class="nav-item blog active"><a class=nav-link href=https://mjzk.xyz/blog/>Blog</a><li class=nav-item><a class=nav-link href=https://mjzk.xyz/yazkb/>Yet Another ZK Benchmark</a></ul><div class="break order-6 d-md-none"></div><form class="navbar-form flex-grow-1 order-7 order-md-3"><input aria-label="Search docs..." class="form-control is-search" placeholder="Search docs..." autocomplete=off id=userinput type=search><div class="shadow bg-white rounded" id=suggestions></div></form></div></div></header><div class="wrap container" role=document><div class=content><div class="row justify-content-center"><div class="col-md-12 col-lg-12 col-xl-12"><article><div class=blog-header><h1>EVM in Action, Part 1: Introduction</h1><p><small>Posted June 3, 2024 by <a class="stretched-link position-relative" href=https://mjzk.xyz/contact/mjzk/>mjzk</a> ‐ <strong>4 min read</strong></small><p></div><p class=lead>The Ethereum Virtual Machine (EVM) is the beating heart of the Ethereum blockchain, enabling the execution of smart contracts and decentralized applications (dApps). Understanding the EVM is crucial for anyone interested in Ethereum development. In this first part of our blog series, we'll introduce the EVM, explore its memory model, execution model, gas model, common opcodes, and the translation from Solidity to opcodes.<h2 id=what-is-the-evm>What is the EVM?</h2><p>The EVM is a decentralized computer that executes smart contracts in a deterministic and isolated environment. It's a virtual machine designed to run bytecode instructions, ensuring that the same input will always produce the same output, regardless of where the execution takes place. This feature is essential for maintaining consensus across the Ethereum network.<h2 id=the-memory-model>The Memory Model</h2><p>The EVM uses three types of storage:<ol><li><p><strong>Storage</strong>: Persistent storage that is part of the blockchain state. Each contract has its own storage, which is a key-value store accessible via <code>SSTORE</code> and <code>SLOAD</code> opcodes. Storage is expensive in terms of gas costs due to its permanence.</p><li><p><strong>Memory</strong>: Volatile storage that is reset after the execution of each transaction. Memory is cheaper than storage and is accessed via <code>MSTORE</code> and <code>MLOAD</code> opcodes. It's used for intermediate calculations and data manipulation within a transaction.</p><li><p><strong>Stack</strong>: A last-in-first-out (LIFO) data structure used for holding small data and performing operations. The stack is extremely fast and is accessed via opcodes like <code>PUSH</code>, <code>POP</code>, <code>DUP</code>, and <code>SWAP</code>.</p></ol><h2 id=execution-model>Execution Model</h2><p>The EVM operates in a sequential manner, executing one instruction at a time. Each operation depends on the previous one, creating a predictable execution flow. Although there have been discussions about parallel execution to improve performance, the current EVM design focuses on sequential execution to maintain simplicity and determinism.<h2 id=gas-model>Gas Model</h2><p>Gas is a fundamental concept in the EVM, serving as a measure of computational effort required to execute operations. Every EVM instruction costs a certain amount of gas, which is deducted from the transaction's gas limit. The gas model serves several purposes:<ul><li><strong>Prevents infinite loops</strong>: By requiring gas for every operation, the EVM ensures that contracts will eventually halt.<li><strong>Mitigates denial-of-service attacks</strong>: High gas costs discourage malicious actors from spamming the network with complex transactions.<li><strong>Prioritizes transactions</strong>: Miners are incentivized to include transactions with higher gas fees in blocks.</ul><p>Common gas-related opcodes include <code>GAS</code>, which returns the remaining gas, and <code>GASPRICE</code>, which returns the gas price set by the transaction.<h2 id=common-opcodes>Common Opcodes</h2><p>EVM opcodes are low-level instructions that perform various tasks. Here are some of the most commonly used ones:<ul><li><code>PUSH</code> (0x60-0x7f): Pushes a value onto the stack.<li><code>POP</code> (0x50): Removes the top value from the stack.<li><code>ADD</code> (0x01): Adds the top two values on the stack.<li><code>MUL</code> (0x02): Multiplies the top two values on the stack.<li><code>SSTORE</code> (0x55): Stores a value in contract storage.<li><code>SLOAD</code> (0x54): Loads a value from contract storage.<li><code>JUMP</code> (0x56) and <code>JUMPI</code> (0x57): Alters the flow of execution.</ul><h2 id=from-solidity-to-opcodes>From Solidity to Opcodes</h2><p>Solidity is a high-level programming language for writing smart contracts on Ethereum. When a Solidity contract is compiled, it is translated into EVM bytecode, a sequence of opcodes. This process involves several steps:<ol><li><strong>Parsing and syntax checking</strong>: The Solidity code is parsed, and its syntax is checked for errors.<li><strong>Abstract syntax tree (AST) generation</strong>: The code is transformed into an AST, representing the structure of the program.<li><strong>Intermediate representation (IR)</strong>: The AST is converted into an IR, which is easier to optimize and analyze.<li><strong>Bytecode generation</strong>: The IR is translated into EVM bytecode, consisting of opcodes that the EVM can execute.</ol><p>For example, a simple Solidity function like <code>function add(uint a, uint b) public pure returns (uint) { return a + b; }</code> would be translated into a series of opcodes that push the values of <code>a</code> and <code>b</code> onto the stack, perform the addition, and return the result.<h2 id=conclusion>Conclusion</h2><p>Understanding the EVM is essential for developing efficient and secure smart contracts. In this introduction, we've covered the basics of the EVM, including its memory model, execution model, gas model, common opcodes, and the translation from Solidity to opcodes. In the next part of our series, we'll dive deeper into the intricacies of EVM opcodes and their practical applications.<p>Stay tuned for Part 2 of "EVM in Action"!</article></div></div></div></div><footer class="site-footer text-muted"><div class=container><div class="d-flex justify-content-between"><div><p class=copyright-text>Copyright © 2024 - 2024 <a href=#>MJZK</a></div></div></div><script src="https://www.googletagmanager.com/gtag/js?id=G-ZGZF8S1VKY" async></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-ZGZF8S1VKY')</script></footer><script defer src=https://mjzk.xyz/js/main.js></script><script defer src=https://mjzk.xyz/plugins/elasticlunr.min.js></script><script defer src=https://mjzk.xyz/search_index.en.js></script><script defer src=https://mjzk.xyz/js/search.js></script>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>MJZK</title>
+    <subtitle>This is the shade home of MJ in blockchain and ZK.</subtitle>
+    <link href="https://mjzk.xyz/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://mjzk.xyz"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2024-06-03T12:00:00+00:00</updated>
+    <id>https://mjzk.xyz/atom.xml</id>
+    <entry xml:lang="en">
+        <title>EVM in Action, Part 1: Introduction</title>
+        <published>2024-06-03T12:00:00+00:00</published>
+        <updated>2024-06-03T12:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="https://mjzk.xyz/blog/evm-in-action-part-1/" type="text/html"/>
+        <id>https://mjzk.xyz/blog/evm-in-action-part-1/</id>
+        
+        <content type="html">&lt;h2 id=&quot;what-is-the-evm&quot;&gt;What is the EVM?&lt;&#x2F;h2&gt;
+&lt;p&gt;The EVM is a decentralized computer that executes smart contracts in a deterministic and isolated environment. It&#x27;s a virtual machine designed to run bytecode instructions, ensuring that the same input will always produce the same output, regardless of where the execution takes place. This feature is essential for maintaining consensus across the Ethereum network.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;the-memory-model&quot;&gt;The Memory Model&lt;&#x2F;h2&gt;
+&lt;p&gt;The EVM uses three types of storage:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Storage&lt;&#x2F;strong&gt;: Persistent storage that is part of the blockchain state. Each contract has its own storage, which is a key-value store accessible via &lt;code&gt;SSTORE&lt;&#x2F;code&gt; and &lt;code&gt;SLOAD&lt;&#x2F;code&gt; opcodes. Storage is expensive in terms of gas costs due to its permanence.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Memory&lt;&#x2F;strong&gt;: Volatile storage that is reset after the execution of each transaction. Memory is cheaper than storage and is accessed via &lt;code&gt;MSTORE&lt;&#x2F;code&gt; and &lt;code&gt;MLOAD&lt;&#x2F;code&gt; opcodes. It&#x27;s used for intermediate calculations and data manipulation within a transaction.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Stack&lt;&#x2F;strong&gt;: A last-in-first-out (LIFO) data structure used for holding small data and performing operations. The stack is extremely fast and is accessed via opcodes like &lt;code&gt;PUSH&lt;&#x2F;code&gt;, &lt;code&gt;POP&lt;&#x2F;code&gt;, &lt;code&gt;DUP&lt;&#x2F;code&gt;, and &lt;code&gt;SWAP&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h2 id=&quot;execution-model&quot;&gt;Execution Model&lt;&#x2F;h2&gt;
+&lt;p&gt;The EVM operates in a sequential manner, executing one instruction at a time. Each operation depends on the previous one, creating a predictable execution flow. Although there have been discussions about parallel execution to improve performance, the current EVM design focuses on sequential execution to maintain simplicity and determinism.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;gas-model&quot;&gt;Gas Model&lt;&#x2F;h2&gt;
+&lt;p&gt;Gas is a fundamental concept in the EVM, serving as a measure of computational effort required to execute operations. Every EVM instruction costs a certain amount of gas, which is deducted from the transaction&#x27;s gas limit. The gas model serves several purposes:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Prevents infinite loops&lt;&#x2F;strong&gt;: By requiring gas for every operation, the EVM ensures that contracts will eventually halt.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Mitigates denial-of-service attacks&lt;&#x2F;strong&gt;: High gas costs discourage malicious actors from spamming the network with complex transactions.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Prioritizes transactions&lt;&#x2F;strong&gt;: Miners are incentivized to include transactions with higher gas fees in blocks.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Common gas-related opcodes include &lt;code&gt;GAS&lt;&#x2F;code&gt;, which returns the remaining gas, and &lt;code&gt;GASPRICE&lt;&#x2F;code&gt;, which returns the gas price set by the transaction.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;common-opcodes&quot;&gt;Common Opcodes&lt;&#x2F;h2&gt;
+&lt;p&gt;EVM opcodes are low-level instructions that perform various tasks. Here are some of the most commonly used ones:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;PUSH&lt;&#x2F;code&gt; (0x60-0x7f): Pushes a value onto the stack.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;POP&lt;&#x2F;code&gt; (0x50): Removes the top value from the stack.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;ADD&lt;&#x2F;code&gt; (0x01): Adds the top two values on the stack.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;MUL&lt;&#x2F;code&gt; (0x02): Multiplies the top two values on the stack.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;SSTORE&lt;&#x2F;code&gt; (0x55): Stores a value in contract storage.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;SLOAD&lt;&#x2F;code&gt; (0x54): Loads a value from contract storage.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;JUMP&lt;&#x2F;code&gt; (0x56) and &lt;code&gt;JUMPI&lt;&#x2F;code&gt; (0x57): Alters the flow of execution.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;from-solidity-to-opcodes&quot;&gt;From Solidity to Opcodes&lt;&#x2F;h2&gt;
+&lt;p&gt;Solidity is a high-level programming language for writing smart contracts on Ethereum. When a Solidity contract is compiled, it is translated into EVM bytecode, a sequence of opcodes. This process involves several steps:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Parsing and syntax checking&lt;&#x2F;strong&gt;: The Solidity code is parsed, and its syntax is checked for errors.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Abstract syntax tree (AST) generation&lt;&#x2F;strong&gt;: The code is transformed into an AST, representing the structure of the program.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Intermediate representation (IR)&lt;&#x2F;strong&gt;: The AST is converted into an IR, which is easier to optimize and analyze.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Bytecode generation&lt;&#x2F;strong&gt;: The IR is translated into EVM bytecode, consisting of opcodes that the EVM can execute.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;For example, a simple Solidity function like &lt;code&gt;function add(uint a, uint b) public pure returns (uint) { return a + b; }&lt;&#x2F;code&gt; would be translated into a series of opcodes that push the values of &lt;code&gt;a&lt;&#x2F;code&gt; and &lt;code&gt;b&lt;&#x2F;code&gt; onto the stack, perform the addition, and return the result.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;&#x2F;h2&gt;
+&lt;p&gt;Understanding the EVM is essential for developing efficient and secure smart contracts. In this introduction, we&#x27;ve covered the basics of the EVM, including its memory model, execution model, gas model, common opcodes, and the translation from Solidity to opcodes. In the next part of our series, we&#x27;ll dive deeper into the intricacies of EVM opcodes and their practical applications.&lt;&#x2F;p&gt;
+&lt;p&gt;Stay tuned for Part 2 of &amp;quot;EVM in Action&amp;quot;!&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>ZK Benchmark is Out</title>
+        <published>2024-05-08T12:00:00+00:00</published>
+        <updated>2024-05-08T12:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="https://mjzk.xyz/blog/zkbench/" type="text/html"/>
+        <id>https://mjzk.xyz/blog/zkbench/</id>
+        
+        <content type="html">&lt;p&gt;&lt;a href=&quot;&#x2F;yazkb&quot;&gt;Yet Another ZK Benchmark Report&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>
